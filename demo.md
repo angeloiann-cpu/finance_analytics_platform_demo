@@ -444,7 +444,7 @@ tsc_sml = DataLoader.load(YfinanceSource(["IFX.DE", "^GDAXI"], start="2021-01-05
 # fetch historic closing prices
 hist_prices = tsc_sml.align().close()
 
-# Plug the closing prices into the sml model (risk)
+# Plug the closing prices into the sml model, returns are automatically generated inside the function
 result = sml(
     hist_prices["IFX.DE"], 
     hist_prices["^GDAXI"], 
