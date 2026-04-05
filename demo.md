@@ -10,8 +10,7 @@ A DataLoader call outputs a TimeSeries object, the most basic data object within
 
 
 ```python
-from app.core.data.loaders.data_loader import DataLoader 
-from app.core.data.sources.api_source import YfinanceSource 
+# Importing from backend 
 
 ts = DataLoader.load(YfinanceSource(["SAP.DE"], start="2026-01-05", end="2026-03-31")) # TimeSeries obj = ts
 
@@ -21,10 +20,6 @@ ts = DataLoader.load(YfinanceSource(["SAP.DE"], start="2026-01-05", end="2026-03
 # - number of observations (length)
 print(ts) 
 ```
-
-    /Users/angelo/Desktop/ITProj/WebCap/backend/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
-      warnings.warn(
-
 
     TimeSeries(name=SAP.DE, type=datetime, length=61)
 
@@ -36,7 +31,7 @@ Example: The PandasAdapter module allows representing any TimeSeries object in a
 
 
 ```python
-from app.core.data.adapters.pandas_adapter import PandasAdapter as pa
+import PandasAdapter as pa
 
 ts.collect(pa)
 ```
@@ -279,7 +274,7 @@ Using .align() on TimeSeriesCollection, normalizes the index to common dates bet
 tsc.align()
 ```
 
-    /Users/angelo/Desktop/ITProj/WebCap/backend/app/domain/timeseries/collection.py:54: UserWarning: Alignment removed timestamp(s): [Timestamp('2026-01-19 00:00:00'), Timestamp('2026-02-16 00:00:00')]
+    UserWarning: Alignment removed timestamp(s): [Timestamp('2026-01-19 00:00:00'), Timestamp('2026-02-16 00:00:00')]
       warnings.warn(
 
 
