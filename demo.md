@@ -241,13 +241,7 @@ tsc.align()
 ```
 
     UserWarning: Alignment removed timestamp(s): [Timestamp('2026-01-19 00:00:00'), Timestamp('2026-02-16 00:00:00')]
-      warnings.warn(
-
-
-
-
-
-    TimeSeriesCollection(n_assets=2, lengths=['IFX.DE: 59', 'NVDA: 59'])
+      warnings.warn(TimeSeriesCollection(n_assets=2, lengths=['IFX.DE: 59', 'NVDA: 59'])
 
 
 
@@ -455,7 +449,7 @@ print(result)
 ```
 
     SMLResult(
-    )  expected_return=-0.008070,
+      expected_return=-0.008070,
       beta=1.440638,
       alpha=0.008522,
     )
