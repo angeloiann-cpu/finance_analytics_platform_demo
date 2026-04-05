@@ -1,12 +1,12 @@
 # Project Demo
-This project is a domain driven financial data framework. In its current state, it handles time-series, signals and collections. The focus is on clean architecture to ensure extensability and scalability
+This project is a domain driven financial data framework. This framework demonstrates how domain-driven design can be applied to financial data pipelines, enabling clean abstractions and composable transformations from raw data to model-ready inputs. In its current state, it handles time-series, signals and collections. The focus is on clean architecture to ensure extensibility and scalability
 
 
 ## 1. Data ingestion and out-of-domain representation
 Data is ingested via the DataLoader module. It can handle CSV and API calls and is extensible to other formats such as JSON etc. For demonstration purposes, a yahoo Finance API call is presented
 
 ### 1.1 TimeSeries Object
-A DataLoader call outputs a TimeSeries object, the most basic data object within this framework. The represenation is a (stock) price, at a given time. In this example, the stock data for SAP SE is fetched, starting from 1st of Jan. 2026 (Ticker: SAP.DE)
+A DataLoader call outputs a TimeSeries object, the most basic data object within this framework. A TimeSeries represents structured financial observations (e.g. OHLCV data) indexed by time. In this example, the stock data for SAP SE is fetched, starting from 1st of Jan. 2026 (Ticker: SAP.DE)
 
 
 ```python
@@ -145,10 +145,10 @@ ts.collect(pa)
 
 ### 1.3 TimeSeriesCollection Object
 
-In addition to a TimeSeries Object, DataLoader can als return a TimeSeriesCollection, where each time series represents a single asset. Such an object, includes an align() method, to align each timestamp onto one shared index. This allows for operations on multiple assets. 
+In addition to a TimeSeries Object, DataLoader can also return a TimeSeriesCollection, where each time series represents a single asset. Such an object, includes an align() method, to align each timestamp onto one shared index. This allows for operations on multiple assets. 
 
 Example:
-yfinance tickers for Infineon AG and NVDIA are IFX.DE and NVDA respectively. 
+yfinance tickers for Infineon AG and NVIDIA are IFX.DE and NVDA respectively. 
 The start date is arbitrarily chosen as the 5th of Jan. 2026
 
 
@@ -233,7 +233,7 @@ df[df.isnull().any(axis=1)]
 
 
 
-Using .align() on TimeSeriesCollection, normalizes the index to common dates between all assets. If NaNs are dropped in the process, a UserWarning is returned for the respective timestamps for logging and debugging reasons. After alignment, the TimeSeriesCollection has complete data and can be used for transformation purposes.
+.align() enforces a shared index across all assets by removing timestamps with missing data. If NaNs are dropped in the process, a UserWarning is returned for the respective timestamps for logging and debugging reasons. After alignment, the TimeSeriesCollection has complete data and can be used for transformation purposes.
 
 
 ```python
@@ -253,7 +253,8 @@ tsc.align()
 
 ## 2. Signals
 
-Signals represent the most basic transformations on TimeSeries objects and gradually add financial meaning. 
+Signals represent typed transformations of time series data. 
+They encapsulate financial meaning (e.g. prices, returns) and define valid operations on those representations. 
 In its current state, this project has the following signals:
 - Base Signal
 - Price Signal
@@ -364,7 +365,7 @@ sap_close.returns().collect(pa).head()
 # sap_close.log_returns().collect(pa).head()
 ```
 
-    <ReturnSignal object at 0x12a4e06d0>
+    <ReturnSignal object>
 
 <table border="1" class="dataframe">
   <thead>
@@ -433,7 +434,7 @@ In this model, the security market line is calculated. Important components like
 
 
 ```python
-from app.models.capm.sml import sml
+## model imported from internal framework
 
 # Let's say we want to decide, how the stock of Infineon has been performing in the past 5 years.
 # We use the DAX30 as the benchmark, since Infineon is one of the constituents. 
@@ -443,7 +444,7 @@ tsc_sml = DataLoader.load(YfinanceSource(["IFX.DE", "^GDAXI"], start="2021-01-05
 # fetch historic closing prices
 hist_prices = tsc_sml.align().close()
 
-# Plug the returns into the sml model (risk)
+# Plug the closing prices into the sml model (risk)
 result = sml(
     hist_prices["IFX.DE"], 
     hist_prices["^GDAXI"], 
