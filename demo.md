@@ -36,23 +36,6 @@ import PandasAdapter as pa
 ts.collect(pa)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -188,23 +171,6 @@ df = tsc.collect(pa)
 df[df.isnull().any(axis=1)]
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr>
@@ -305,24 +271,6 @@ Taking the TimeSeries example from before (SAP stock data), one can clearly see 
 sap_close = ts.close()
 sap_close.collect(pa).head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -416,26 +364,8 @@ sap_close.returns().collect(pa).head()
 # sap_close.log_returns().collect(pa).head()
 ```
 
-    <app.domain.signals.return_signal.ReturnSignal object at 0x12a4e06d0>
+    <ReturnSignal object at 0x12a4e06d0>
 
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -489,7 +419,7 @@ print(signals["NVDA"].mean())       # single signal access
     183.51674846067266
 
 
-    /Users/angelo/Desktop/ITProj/WebCap/backend/app/domain/timeseries/collection.py:54: UserWarning: Alignment removed timestamp(s): [Timestamp('2026-01-19 00:00:00'), Timestamp('2026-02-16 00:00:00')]
+   Alignment removed timestamp(s): [Timestamp('2026-01-19 00:00:00'), Timestamp('2026-02-16 00:00:00')]
       warnings.warn(
 
 
