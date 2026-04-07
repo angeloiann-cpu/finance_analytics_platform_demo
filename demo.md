@@ -255,7 +255,10 @@ In its current state, this project has the following signals:
 - Return Signal 
 - Interest Rate Signal and Cash Flow Signal (both still work in progress)
 
-The idea behind this architecture is categorizing raw data, and transforming it into clearly defined types. A clear data-transformation pipeline is the result of this approach. 
+The idea behind this architecture is categorizing raw data, and transforming it into clearly defined types. A clear data-transformation pipeline is the result of this approach. The entire transformation pipeline can be expressed in a single composable chain
+```python
+tsc.align().close().returns()
+```
 
 ### 2.1 Price Signal (single asset case)
 
