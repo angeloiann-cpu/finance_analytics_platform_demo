@@ -161,9 +161,9 @@ print(tsc)
     TimeSeriesCollection(n_assets=2, lengths=['IFX.DE: 61', 'NVDA: 59'])
 
 
-As shown in the above example, the NVDIA stock data has 2 observations less, than the Infineon stock data.
+As shown in the above example, the NVIDIA stock data has 2 observations less, than the Infineon stock data.
 Using .collect(PandasAdapter), pandas can be used natively. Using a simple pandas operation, the NaN values are extracted within the collection. 
-The 2 missing datapoints of NVDIA are both US bank holidays (MLK day and President's day)
+The 2 missing datapoints of NVIDIA are both US bank holidays (MLK day and President's day)
 
 
 ```python
@@ -400,7 +400,7 @@ sap_close.returns().collect(pa).head()
 
 ### 2.3 Vectorized operations on Multi-Asset Signals (SignalCollection)
 The same methods can also be applied in a vectorized form in the Multi-Asset Case (SignalCollection). 
-Below an example, where the TimeSeriesCollection is aligned, then closing prices are selected. On the price signals, log returns are calculated and ultimately collected. 
+Below an example, where the TimeSeriesCollection is aligned, then closing prices are selected. 
 
 
 ```python
